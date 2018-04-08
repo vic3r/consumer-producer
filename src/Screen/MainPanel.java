@@ -20,8 +20,6 @@ import javax.swing.JPanel;
 
 import GraphicComponents.BootstrapButton;
 import GraphicComponents.BootstrapPanel;
-import GraphicComponents.BootstrapSpinner;
-import GraphicComponents.BootstrapTable;
 import GraphicPanels.BottomPanel;
 import GraphicPanels.TitlePanel;
 import Graphics.ProducerConsumer;
@@ -149,47 +147,13 @@ public class MainPanel extends JFrame implements ActionListener, WindowListener{
 		bufferSize.setBounds(40,180,340,60);
 		content.add(bufferSize);
 		
-		rangeValues = new BootstrapPanel("/Images/number.png", "Values Range (n, m)");
+		rangeValues = new BootstrapPanel("/Images/number.png", "Value n");
 		rangeValues.setBounds(40,260,340,60);
 		content.add(rangeValues);
 		
-//		rangeValuesTime = new BootstrapPanel("/Images/timeValues.png", "Range Time (ms)");
-//		rangeValuesTime.setBounds(400, 260,360,60);
-//		content.add(rangeValuesTime);
-		
-		BootstrapSpinner rangeValuesTime = new BootstrapSpinner("/Images/timeValues.png");
+		rangeValuesTime = new BootstrapPanel("/Images/timeValues.png", "Value m");
 		rangeValuesTime.setBounds(400, 260,360,60);
 		content.add(rangeValuesTime);
-		
-		BootstrapTable tableProducer = new BootstrapTable();
-		tableProducer.setBounds(780,20, 300, 180);
-		tableProducer.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-		
-		content.add(tableProducer);
-		
-		BootstrapTable tableConsumer = new BootstrapTable();
-		tableConsumer.setBounds(780,220, 300, 180);
-		tableConsumer.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {
-            {null, null, null, null},
-            {null, null, null, null},
-            {null, null, null, null},
-            {null, null, null, null}
-        },
-        new String [] {
-            "Title 1", "Title 2", "Title 3", "Title 4"
-        }
-		));
-		
-		content.add(tableConsumer);
 		
 		jbStop = new BootstrapButton("Stop", BootstrapButton.DANGER_TYPE);
 		jbStop.setBounds(590,365,150,50);
@@ -228,7 +192,6 @@ public class MainPanel extends JFrame implements ActionListener, WindowListener{
 			public void mouseClicked(MouseEvent e) {
 				// TODO Auto-generated method stub
 				if(e.getSource() == this) {
-					ProducerConsumer produceConsumer = new ProducerConsumer();
 					Buffer buffer = new Buffer();
 					Producer producer = new Producer(buffer);
 					producer.start(); 
