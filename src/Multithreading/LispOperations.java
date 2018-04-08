@@ -14,19 +14,27 @@ import java.util.Random;
  */
 public class LispOperations {
    final char[] operands = {'+', '-', '/', '*'};
+   private int n, m;
    Random random;
    
-   LispOperations() {
+   LispOperations(int n, int m) {
+	   this.n = n;
+	   this.m = m;
        random = new Random();
    }
    
-   public char getOperand(int i) {
+   public char getOperand() {
        int randOperand = random.nextInt(4);
        return operands[randOperand];
    }
    
    public int getNumber() {
-       int randNumber = random.nextInt(10);
+       int randNumber = random.nextInt((m - n) + 1) + m;
        return randNumber;
    }
+   
+   public String createOperation() {
+	   return getOperand()+ " "+getNumber()+" "+getNumber();
+   }
+   
 }

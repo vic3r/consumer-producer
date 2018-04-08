@@ -14,10 +14,12 @@ public class Producer extends Thread {
     
     private Buffer buffer;
     private int timeInMillis;
+    private boolean isStart;
     
     public Producer( Buffer buffer ) {
         this.buffer = buffer;
         this.timeInMillis = 1000;
+        this.isStart = true;
     }
     
     @Override
@@ -27,7 +29,7 @@ public class Producer extends Thread {
        Random r = new Random(System.currentTimeMillis());
        char product = 0;
        
-       while (true) {
+       while (isStart) {
            product = products.charAt(r.nextInt(5));
            this.buffer.produce(product);
            System.out.println("Producer produced: " + product);
@@ -38,6 +40,10 @@ public class Producer extends Thread {
                 Logger.getLogger(Buffer.class.getName()).log(Level.SEVERE, null, e);
            }
        }
+    }
+    
+    public void setCancel() {
+    	this.isStart = false;
     }
     
     public void setTime(int timeInMillis) {
