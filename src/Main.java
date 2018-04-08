@@ -1,4 +1,4 @@
-import Screen.CPGeneral;
+import Screen.MainPanel;
 import Utils.AlterFonts;
 
 public class Main {
@@ -6,7 +6,7 @@ public class Main {
 	public static void main(String[] args) {
 		AlterFonts.alterFonts();
 				
-		CPGeneral cpGeneral = new CPGeneral();
+		MainPanel cpGeneral = new MainPanel();
 		cpGeneral.setVisible(true);
 		//ProducerConsumer produceConsumer = new ProducerConsumer();
 		//     Buffer buffer = new Buffer();

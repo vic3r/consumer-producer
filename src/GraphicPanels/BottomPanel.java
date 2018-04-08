@@ -35,7 +35,8 @@ public class BottomPanel extends JPanel{
 		separator.setBackground(Color.LIGHT_GRAY);
 		add(separator);
 		
-		JLabel jlBottom = new JLabel("<html>Hey Buddy! Already subscribe<br>No Problem Click Here<html>");
+		JLabel jlBottom = new JLabel("<html>Authors<br>Monserrat Genereux <br>Victor Garcia <br> "
+				+ "More info: https://github.com/vic3r/consumer-producer<html>");
 		jlBottom.setBounds(40,0,650,100);
 		jlBottom.setFont(new Font("SansSerif", Font.TRUETYPE_FONT, 14));
 		jlBottom.setForeground(new Color(115,115,115));

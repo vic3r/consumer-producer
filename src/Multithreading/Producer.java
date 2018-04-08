@@ -15,7 +15,7 @@ public class Producer extends Thread {
     private Buffer buffer;
     private int timeInMillis;
     
-    Producer( Buffer buffer ) {
+    public Producer( Buffer buffer ) {
         this.buffer = buffer;
         this.timeInMillis = 1000;
     }
