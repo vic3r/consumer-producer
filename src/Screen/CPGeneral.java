@@ -21,7 +21,6 @@ import GraphicComponents.BootstrapButton;
 import GraphicComponents.BootstrapPanel;
 import GraphicComponents.BootstrapCheckBox;
 import GraphicPanels.BottomPanel;
-import GraphicPanels.RainbowPanel;
 import GraphicPanels.TitlePanel;
 
 public class CPGeneral extends JFrame implements ActionListener, WindowListener{
