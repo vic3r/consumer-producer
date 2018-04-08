@@ -39,7 +39,7 @@ public class TitlePanel extends JPanel{
 		separator.setBackground(Color.LIGHT_GRAY);
 		add(separator);
 		
-		JLabel jlTitle = new JLabel("Newsletter Panel");
+		JLabel jlTitle = new JLabel("Consumer-Producer Project");
 		jlTitle.setBounds(110,0,650,100);
 		jlTitle.setFont(new Font("SansSerif", Font.TRUETYPE_FONT, 20));
 		jlTitle.setForeground(new Color(115,115,115));
@@ -48,7 +48,7 @@ public class TitlePanel extends JPanel{
 		JLabel jlTitleIcon = new JLabel();
 		jlTitleIcon.setBounds(40,0,60,100);
 		jlTitleIcon.setBackground(new Color(220, 220, 220));
-		jlTitleIcon.setIcon(new CustomImageIcon("/Images/coffee.png", "Producer-Consumer Project", 60, 60));
+		jlTitleIcon.setIcon(new CustomImageIcon("/Images/coffee.png", "coffee", 60, 60));
 		add(jlTitleIcon);
 	}
 	

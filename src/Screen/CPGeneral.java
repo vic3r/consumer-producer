@@ -27,17 +27,28 @@ public class CPGeneral extends JFrame implements ActionListener, WindowListener{
 	
 	private static final long serialVersionUID = 1L;
 
-	private JMenuBar jmBarraMenu;
-	private JMenu jmArquivo;
-	private JMenuItem jmiArquivoSair;
+	private JMenuBar barMenu;
+	private JMenu endBarMenu;
+	private JMenuItem barMenuItem;
 	
 	static Container C;
+
+	private BootstrapCheckBox jcb;
+	private BootstrapButton jb2;
+	private BootstrapButton jb1;
+	private BottomPanel bp;
+	private BootstrapPanel jpEmail;
+	private BootstrapPanel noConsumers;
+	private BootstrapPanel noProducers;
+	private JPanel content;
+	private TitlePanel tp;
 	
 	public CPGeneral(){
-		super("Title");
-		setSize(800,600);
+		super("Programming Languages Project");
+		setSize(1200,600);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
+		setResizable(false);
 		//setResizable(false);
 		//setLayout(null);
 		addWindowListener(this);
@@ -85,52 +96,52 @@ public class CPGeneral extends JFrame implements ActionListener, WindowListener{
 	}
 	
 	public void initComponents(){
-		jmBarraMenu = new JMenuBar();
-		jmBarraMenu.setBounds(0, 0, 800, 20);
-		C.add(jmBarraMenu);
+		barMenu = new JMenuBar();
+		barMenu.setBounds(0, 0, 800, 20);
+		C.add(barMenu);
 		
 		//BEGIN - ARQUIVO
-		jmArquivo = new JMenu("Arquivo");
-		jmBarraMenu.add(jmArquivo);
+		endBarMenu = new JMenu("PPCDSALVC");
+		barMenu.add(endBarMenu);
 		
-		jmiArquivoSair = new JMenuItem("Sair");
-		jmiArquivoSair.addActionListener(this);
-		jmArquivo.add(jmiArquivoSair);
+		barMenuItem = new JMenuItem("Sair");
+		barMenuItem.addActionListener(this);
+		endBarMenu.add(barMenuItem);
 		//END - ARQUIVO
 		
-		TitlePanel tp = new TitlePanel(new Rectangle(0, 35, 800, 100));
+		tp = new TitlePanel(new Rectangle(0, 35, 800, 100));
 		C.add(tp);
 		
-		JPanel content = new JPanel();
+		content = new JPanel();
 		content.setBounds(new Rectangle(0,135,800,340));
 		content.setLayout(null);
 		C.add(content);
 		
-		BootstrapPanel jpFirstName = new BootstrapPanel("/Images/profile-icon.png", "First Name");
-		jpFirstName.setBounds(40,20,340,60);
-		content.add(jpFirstName);
+		noProducers = new BootstrapPanel("/Images/pacman.png", "No. Producers");
+		noProducers.setBounds(40,20,340,60);
+		content.add(noProducers);
 		
-		BootstrapPanel jpLastName = new BootstrapPanel("/Images/profile-icon.png", "Last Name");
-		jpLastName.setBounds(400,20,340,60);
-		content.add(jpLastName);
+		noConsumers = new BootstrapPanel("/Images/fantasma.png", "No. Consumers");
+		noConsumers.setBounds(400,20,340,60);
+		content.add(noConsumers);
 		
-		BootstrapPanel jpEmail = new BootstrapPanel("/Images/mail.png", "E-Mail");
+		jpEmail = new BootstrapPanel("/Images/mail.png", "E-Mail");
 		jpEmail.setBounds(40,100,700,60);
 		content.add(jpEmail);
 		
-		BootstrapCheckBox jcb = new BootstrapCheckBox("Send me promotions and offers", new Color(138, 147, 179), new Color(114, 132, 193));
+		jcb = new BootstrapCheckBox("Send me promotions and offers", new Color(138, 147, 179), new Color(114, 132, 193));
 		jcb.setBounds(40,180,700,60);
 		content.add(jcb);
 		
-		BootstrapButton jb2 = new BootstrapButton("Reset", BootstrapButton.DANGER_TYPE);
+		jb2 = new BootstrapButton("Reset", BootstrapButton.DANGER_TYPE);
 		jb2.setBounds(590,265,150,50);
 		content.add(jb2);
 		
-		BootstrapButton jb1 = new BootstrapButton("Submit", BootstrapButton.SUCCESS_TYPE);
+		jb1 = new BootstrapButton("Submit", BootstrapButton.SUCCESS_TYPE);
 		jb1.setBounds(420,265,150,50);
 		content.add(jb1);
 		
-		BottomPanel bp = new BottomPanel(new Rectangle(0,475,800,100));
+		bp = new BottomPanel(new Rectangle(0,475,800,100));
 		C.add(bp);
 		
 		
@@ -139,11 +150,11 @@ public class CPGeneral extends JFrame implements ActionListener, WindowListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		for(Component i :getContentPane().getComponents()){
-			if(!i.equals(jmBarraMenu))
+			if(!i.equals(barMenu))
 				i.setVisible(false);
 		}
 		
-		if(e.getSource().equals(jmiArquivoSair)){
+		if(e.getSource().equals(barMenuItem)){
 			System.exit(EXIT_ON_CLOSE);
 		}
 	}
