@@ -7,6 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
@@ -20,6 +22,10 @@ import GraphicComponents.BootstrapButton;
 import GraphicComponents.BootstrapPanel;
 import GraphicPanels.BottomPanel;
 import GraphicPanels.TitlePanel;
+import Graphics.ProducerConsumer;
+import Multithreading.Buffer;
+import Multithreading.Consumer;
+import Multithreading.Producer;
 
 public class MainPanel extends JFrame implements ActionListener, WindowListener{
 	
@@ -41,10 +47,10 @@ public class MainPanel extends JFrame implements ActionListener, WindowListener{
 	private TitlePanel titlePanel;
 	private BootstrapPanel timeConsumers;
 	private BootstrapPanel bufferSize;
-
 	private BootstrapPanel rangeValues;
-
 	private BootstrapPanel rangeValuesTime;
+	
+	private Buffer buffer;
 	
 	public MainPanel(){
 		super("Programming Languages Project");
@@ -57,6 +63,8 @@ public class MainPanel extends JFrame implements ActionListener, WindowListener{
 		
 		leadContainer = getContentPane();
 		leadContainer.setLayout(null);
+		
+		buffer = new Buffer();
 		
 		initComponents();
 		
@@ -153,13 +161,83 @@ public class MainPanel extends JFrame implements ActionListener, WindowListener{
 		
 		jbStart = new BootstrapButton("Start", BootstrapButton.SUCCESS_TYPE);
 		jbStart.setBounds(420,365,150,50);
+		jbStart.addActionListener(this);
+		jbStart.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				if(e.getSource() == this) {
+					ProducerConsumer produceConsumer = new ProducerConsumer();
+					Buffer buffer = new Buffer();
+					Producer producer = new Producer(buffer);
+					producer.start(); 
+					Consumer consumer = new Consumer(buffer);
+					consumer.start();
+				}
+				
+			}
+		});
 		content.add(jbStart);
 		
 		
 		bpPanel = new BottomPanel(new Rectangle(0,575,800,100));
 		leadContainer.add(bpPanel);
 		
+	}
+	
+	public boolean createProducer (int sizeProducers) {
+		while(sizeProducers!= 0) {
+			Producer producer = new Producer(buffer);
+			try {
+				Thread.sleep(Integer.parseInt(timeProducers.getText()));
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				return false;
+			}
+			sizeProducers--;
+		}
 		
+		return sizeProducers == 0? true : false;
+	}
+	
+	public boolean createConsumer (int sizeConsumers) {
+		while(sizeConsumers!= 0) {
+			Consumer consumer = new Consumer(buffer);
+			try {
+				Thread.sleep(Integer.parseInt(timeProducers.getText()));
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				return false;
+			}
+			sizeConsumers--;
+		}
+		
+		return sizeConsumers == 0? true : false;
 	}
 	
 	@Override
