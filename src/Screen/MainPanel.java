@@ -21,6 +21,7 @@ import javax.swing.JPanel;
 import GraphicComponents.BootstrapButton;
 import GraphicComponents.BootstrapPanel;
 import GraphicComponents.BootstrapSpinner;
+import GraphicComponents.BootstrapTable;
 import GraphicPanels.BottomPanel;
 import GraphicPanels.TitlePanel;
 import Graphics.ProducerConsumer;
@@ -124,7 +125,7 @@ public class MainPanel extends JFrame implements ActionListener, WindowListener{
 		leadContainer.add(titlePanel);
 		
 		content = new JPanel();
-		content.setBounds(new Rectangle(0,135,800,440));
+		content.setBounds(new Rectangle(0,135,1100,440));
 		content.setLayout(null);
 		leadContainer.add(content);
 		
@@ -159,6 +160,36 @@ public class MainPanel extends JFrame implements ActionListener, WindowListener{
 		BootstrapSpinner rangeValuesTime = new BootstrapSpinner("/Images/timeValues.png");
 		rangeValuesTime.setBounds(400, 260,360,60);
 		content.add(rangeValuesTime);
+		
+		BootstrapTable tableProducer = new BootstrapTable();
+		tableProducer.setBounds(780,20, 300, 180);
+		tableProducer.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+		
+		content.add(tableProducer);
+		
+		BootstrapTable tableConsumer = new BootstrapTable();
+		tableConsumer.setBounds(780,220, 300, 180);
+		tableConsumer.setModel(new javax.swing.table.DefaultTableModel(new Object[][] {
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null},
+            {null, null, null, null}
+        },
+        new String [] {
+            "Title 1", "Title 2", "Title 3", "Title 4"
+        }
+		));
+		
+		content.add(tableConsumer);
 		
 		jbStop = new BootstrapButton("Stop", BootstrapButton.DANGER_TYPE);
 		jbStop.setBounds(590,365,150,50);
