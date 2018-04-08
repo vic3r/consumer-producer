@@ -99,9 +99,6 @@ public class CPGeneral extends JFrame implements ActionListener, WindowListener{
 		jmArquivo.add(jmiArquivoSair);
 		//END - ARQUIVO
 		
-		RainbowPanel rbp = new RainbowPanel(new Rectangle(0, 20, 800, 15));
-		C.add(rbp);
-		
 		TitlePanel tp = new TitlePanel(new Rectangle(0, 35, 800, 100));
 		C.add(tp);
 		

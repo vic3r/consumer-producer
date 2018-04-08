@@ -48,7 +48,7 @@ public class TitlePanel extends JPanel{
 		JLabel jlTitleIcon = new JLabel();
 		jlTitleIcon.setBounds(40,0,60,100);
 		jlTitleIcon.setBackground(new Color(220, 220, 220));
-		jlTitleIcon.setIcon(new CustomImageIcon("/Images/newsletterIcon.png", "newsletter", 60, 60));
+		jlTitleIcon.setIcon(new CustomImageIcon("/Images/coffee.png", "Producer-Consumer Project", 60, 60));
 		add(jlTitleIcon);
 	}
 	
