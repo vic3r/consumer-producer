@@ -7,28 +7,28 @@ import java.awt.RenderingHints;
 import javax.swing.JTextField;
 import javax.swing.text.Document;
 
-public class RectlookTextField extends JTextField {
+public class BootstrapTextField extends JTextField {
 
 	private static final long serialVersionUID = 1L;
     private String placeholder;
 
-    public RectlookTextField() {
+    public BootstrapTextField() {
     	
     }
 
-    public RectlookTextField(final Document pDoc, final String pText, final int pColumns){
+    public BootstrapTextField(final Document pDoc, final String pText, final int pColumns){
         super(pDoc, pText, pColumns);
     }
 
-    public RectlookTextField(final int pColumns) {
+    public BootstrapTextField(final int pColumns) {
         super(pColumns);
     }
 
-    public RectlookTextField(final String pText) {
+    public BootstrapTextField(final String pText) {
         super(pText);
     }
 
-    public RectlookTextField(final String pText, final int pColumns) {
+    public BootstrapTextField(final String pText, final int pColumns) {
         super(pText, pColumns);
     }
 

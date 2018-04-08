@@ -6,7 +6,7 @@ import java.awt.Graphics;
 
 import javax.swing.Icon;
 
-public class RectlookCheckBoxIcon implements Icon {
+public class BootstrapCheckBoxIcon implements Icon {
 	Color primaryColor, secundaryColor;
 	int border, width, height, type;
 	
@@ -18,7 +18,7 @@ public class RectlookCheckBoxIcon implements Icon {
 	public static final int DISABLED_SELECTED = 6;
 	public static final int ROLLOVER_SELECTED = 7;
 	
-	public RectlookCheckBoxIcon(Color primary, Color secundary, int type) {
+	public BootstrapCheckBoxIcon(Color primary, Color secundary, int type) {
 		this.primaryColor = primary;
 		this.secundaryColor = secundary;
 		this.border = 1;
@@ -27,7 +27,7 @@ public class RectlookCheckBoxIcon implements Icon {
 		this.type = type;
 	}
 	
-	public RectlookCheckBoxIcon(Color primary, Color secundary, int type, int border) {
+	public BootstrapCheckBoxIcon(Color primary, Color secundary, int type, int border) {
 		this.primaryColor = primary;
 		this.secundaryColor = secundary;
 		this.border = border;
@@ -36,7 +36,7 @@ public class RectlookCheckBoxIcon implements Icon {
 		this.type = type;
 	}
 	
-	public RectlookCheckBoxIcon(Color primary, Color secundary, int type, int border, int width, int height) {
+	public BootstrapCheckBoxIcon(Color primary, Color secundary, int type, int border, int width, int height) {
 		this.primaryColor = primary;
 		this.secundaryColor = secundary;
 		this.border = border;
@@ -45,7 +45,7 @@ public class RectlookCheckBoxIcon implements Icon {
 		this.type = type;
 	}
 	
-	public RectlookCheckBoxIcon(Color primary, Color secundary, int type, int width, int height) {
+	public BootstrapCheckBoxIcon(Color primary, Color secundary, int type, int width, int height) {
 		this.primaryColor = primary;
 		this.secundaryColor = secundary;
 		this.border = 1;

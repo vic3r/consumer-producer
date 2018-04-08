@@ -9,12 +9,12 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import view.swing.utils.bo.CustomImageIcon;
+import GraphicImage.CustomImageIcon;
 
 public class BootstrapPanel extends JPanel{
 	
 	private static final long serialVersionUID = 1L;
-	private RectlookTextField textField;
+	private BootstrapTextField textField;
 	private JLabel label;
 	
 	private String description;
@@ -35,7 +35,7 @@ public class BootstrapPanel extends JPanel{
 		
 		height = this.getHeight() - 4;
 		
-		textField = new RectlookTextField();
+		textField = new BootstrapTextField();
 		textField.setBounds(2, 2, getWidth() - (height + 2), height);
 		textField.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 5));
 		textField.setFont(new Font("SansSerif", Font.TRUETYPE_FONT, (height / 2)));

@@ -19,7 +19,7 @@ import javax.swing.JPanel;
 
 import GraphicComponents.BootstrapButton;
 import GraphicComponents.BootstrapPanel;
-import GraphicComponents.RectlookCheckBox;
+import GraphicComponents.BootstrapCheckBox;
 import GraphicPanels.BottomPanel;
 import GraphicPanels.RainbowPanel;
 import GraphicPanels.TitlePanel;
@@ -110,19 +110,19 @@ public class CPGeneral extends JFrame implements ActionListener, WindowListener{
 		content.setLayout(null);
 		C.add(content);
 		
-		BootstrapPanel jpFirstName = new BootstrapPanel("/view/images/profile-icon.png", "First Name");
+		BootstrapPanel jpFirstName = new BootstrapPanel("/Images/profile-icon.png", "First Name");
 		jpFirstName.setBounds(40,20,340,60);
 		content.add(jpFirstName);
 		
-		BootstrapPanel jpLastName = new BootstrapPanel("/view/images/profile-icon.png", "Last Name");
+		BootstrapPanel jpLastName = new BootstrapPanel("/Images/profile-icon.png", "Last Name");
 		jpLastName.setBounds(400,20,340,60);
 		content.add(jpLastName);
 		
-		BootstrapPanel jpEmail = new BootstrapPanel("/view/images/mail.png", "E-Mail");
+		BootstrapPanel jpEmail = new BootstrapPanel("/Images/mail.png", "E-Mail");
 		jpEmail.setBounds(40,100,700,60);
 		content.add(jpEmail);
 		
-		RectlookCheckBox jcb = new RectlookCheckBox("Send me promotions and offers", new Color(138, 147, 179), new Color(114, 132, 193));
+		BootstrapCheckBox jcb = new BootstrapCheckBox("Send me promotions and offers", new Color(138, 147, 179), new Color(114, 132, 193));
 		jcb.setBounds(40,180,700,60);
 		content.add(jcb);
 		
