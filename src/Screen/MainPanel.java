@@ -20,6 +20,7 @@ import javax.swing.JPanel;
 
 import GraphicComponents.BootstrapButton;
 import GraphicComponents.BootstrapPanel;
+import GraphicComponents.BootstrapSpinner;
 import GraphicPanels.BottomPanel;
 import GraphicPanels.TitlePanel;
 import Graphics.ProducerConsumer;
@@ -143,15 +144,19 @@ public class MainPanel extends JFrame implements ActionListener, WindowListener{
 		timeConsumers.setBounds(400,100,360,60);
 		content.add(timeConsumers);
 		
-		bufferSize = new BootstrapPanel("/Images/fantasma.png", "Buffer Size");
+		bufferSize = new BootstrapPanel("/Images/buffer.png", "Buffer Size");
 		bufferSize.setBounds(40,180,340,60);
 		content.add(bufferSize);
 		
-		rangeValues = new BootstrapPanel("/Images/fantasma.png", "Values Range (n, m)");
+		rangeValues = new BootstrapPanel("/Images/number.png", "Values Range (n, m)");
 		rangeValues.setBounds(40,260,340,60);
 		content.add(rangeValues);
 		
-		rangeValuesTime = new BootstrapPanel("/Images/timeEnemy.png", "Range Time (ms)");
+//		rangeValuesTime = new BootstrapPanel("/Images/timeValues.png", "Range Time (ms)");
+//		rangeValuesTime.setBounds(400, 260,360,60);
+//		content.add(rangeValuesTime);
+		
+		BootstrapSpinner rangeValuesTime = new BootstrapSpinner("/Images/timeValues.png");
 		rangeValuesTime.setBounds(400, 260,360,60);
 		content.add(rangeValuesTime);
 		
