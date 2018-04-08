@@ -17,7 +17,6 @@ public class Main {
 		//    
 		//    Consumer consumer = new Consumer(buffer);
 		//    consumer.start();
-
 	}
 
 }
