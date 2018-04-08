@@ -1,5 +1,6 @@
 package Multithreading;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.logging.Level;
@@ -13,31 +14,37 @@ import java.util.logging.Logger;
 
  public class Buffer {
     
-    private Queue<Character> bufferStorage;
+    private Queue<String> bufferStorage;
+    private int bufferLength;
+    private int sleepConsumer, sleepProductor;
     
-    public Buffer() {
-        this.bufferStorage = new LinkedList<Character>();
+    public Buffer(int length, int sleepConsumer, int sleepProductor) {
+       // this.bufferStorage = new LinkedList<>(Arrays.asList(new String[length]));
+        this.bufferStorage = new LinkedList<>();
+        this.bufferLength = length;
+        this.sleepConsumer = sleepConsumer;
+        this.sleepProductor = sleepProductor;
     }
     
-    synchronized char consume() {
+    synchronized String consume() {
          if(this.bufferStorage.isEmpty()) {
             try {
-                wait(1000);
+                wait(sleepProductor);
             } catch(InterruptedException e) {
                 Logger.getLogger(Buffer.class.getName()).log(Level.SEVERE, null, e);
             }
         }
-        char product = this.bufferStorage.poll();
+        String product = this.bufferStorage.poll();
         notifyAll();
         
         return product;
     }
     
-    synchronized void produce(char product) {
+    synchronized void produce(String product) {
 
-        if(!this.bufferStorage.isEmpty()){
+        if(!this.bufferStorage.isEmpty() || this.bufferStorage.size() == bufferLength){
                try {
-                wait(1000);
+                wait(sleepConsumer);
             } catch(InterruptedException e) {
                 Logger.getLogger(Buffer.class.getName()).log(Level.SEVERE, null, e);
             }

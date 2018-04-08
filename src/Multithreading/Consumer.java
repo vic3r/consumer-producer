@@ -12,31 +12,50 @@ import java.util.logging.Logger;
 
 public class Consumer extends Thread {
     private Buffer buffer;
-    private int timeInMillis;
+	private long sleepTime;
     
     public Consumer(Buffer buffer) {
         this.buffer = buffer;
-        timeInMillis = 1000;
+        this.sleepTime = 1000;
     }
     
     @Override
     public void run() {
         System.out.println("Running Consumer...");
-        char product = 0;
+        String product;
         
         while (true) {
             product = this.buffer.consume();
-            System.out.println("Consumer consumed: " + product);
-            
-            try {
-               Thread.sleep(this.timeInMillis);
-           } catch(InterruptedException e) {
-                Logger.getLogger(Buffer.class.getName()).log(Level.SEVERE, null, e);
+            if (product != null) {
+            	System.out.println("Consumer consumed: " + getResult(product)); 
+	            try {
+	               Thread.sleep(this.sleepTime);
+	           } catch(InterruptedException e) {
+	                Logger.getLogger(Buffer.class.getName()).log(Level.SEVERE, null, e);
+	           }
            }
         } 
     }
     
-    public void setTime(int timeInMillis) {
-        this.timeInMillis = timeInMillis;
+    public double getResult(String product) {
+    	String[] result = product.split("\\s+");
+    	String operand = result[0]; 
+    	Double valueToShow = 0.0;
+    	switch(operand.charAt(0)) {
+	    	case '+':
+	    		valueToShow = (double) (Integer.parseInt(result[1]) + Integer.parseInt(result [2]));
+	    		break;
+	    	case '-':
+	    		valueToShow = (double) (Integer.parseInt(result[1]) - Integer.parseInt(result [2]));
+	    		break;
+	    	case '*':
+	    		valueToShow = (double) (Integer.parseInt(result[1]) * Integer.parseInt(result [2]));
+	    		break;
+	    	case '/':
+	    		valueToShow = (double) (Integer.parseInt(result[1]) / Integer.parseInt(result [2]));
+	    		break;
+    	}
+    	
+    	return valueToShow;
     }
 }

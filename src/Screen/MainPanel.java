@@ -47,8 +47,8 @@ public class MainPanel extends JFrame implements ActionListener, WindowListener{
 	private TitlePanel titlePanel;
 	private BootstrapPanel timeConsumers;
 	private BootstrapPanel bufferSize;
-	private BootstrapPanel rangeValues;
-	private BootstrapPanel rangeValuesTime;
+	private BootstrapPanel valuesN;
+	private BootstrapPanel valuesM;
 	
 	private Buffer buffer;
 	
@@ -63,8 +63,6 @@ public class MainPanel extends JFrame implements ActionListener, WindowListener{
 		
 		leadContainer = getContentPane();
 		leadContainer.setLayout(null);
-		
-		buffer = new Buffer();
 		
 		initComponents();
 		addButtonEvents();
@@ -148,13 +146,13 @@ public class MainPanel extends JFrame implements ActionListener, WindowListener{
 		bufferSize.setBounds(40,180,340,60);
 		content.add(bufferSize);
 		
-		rangeValues = new BootstrapPanel("/Images/number.png", "Value n");
-		rangeValues.setBounds(40,260,340,60);
-		content.add(rangeValues);
+		valuesN = new BootstrapPanel("/Images/number.png", "Value n");
+		valuesN.setBounds(40,260,340,60);
+		content.add(valuesN);
 		
-		rangeValuesTime = new BootstrapPanel("/Images/timeValues.png", "Value m");
-		rangeValuesTime.setBounds(400, 260,360,60);
-		content.add(rangeValuesTime);
+		valuesM = new BootstrapPanel("/Images/timeValues.png", "Value m");
+		valuesM.setBounds(400, 260,360,60);
+		content.add(valuesM);
 		
 		jbStop = new BootstrapButton("Stop", BootstrapButton.DANGER_TYPE);
 		jbStop.setBounds(590,365,150,50);
@@ -177,17 +175,22 @@ public class MainPanel extends JFrame implements ActionListener, WindowListener{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-					Buffer buffer = new Buffer();
-					Producer producer = new Producer(buffer);
-					producer.start(); 
-					Consumer consumer = new Consumer(buffer);
-					consumer.start();
+					
 					try {
 						int producersQuantity = Integer.parseInt(noProducers.getText());
 						int consumersQuantity = Integer.parseInt(noConsumers.getText());
 						int waitTimeProducers = Integer.parseInt(timeProducers.getText());
 						int waitTimeConsumers = Integer.parseInt(timeConsumers.getText());
 						
+						int bufferLength = Integer.parseInt(bufferSize.getText());
+						
+						buffer = new Buffer(bufferLength, waitTimeConsumers, waitTimeProducers);
+						
+						int n = Integer.parseInt(valuesN.getText());
+						int m = Integer.parseInt(valuesM.getText());
+						
+						createProducer(producersQuantity, waitTimeProducers, n, m);
+						createConsumer(consumersQuantity, waitTimeConsumers);
 						
 					} catch(Exception except) {
 						JOptionPane.showMessageDialog(null, "Type only Integer positive digits");
@@ -197,9 +200,10 @@ public class MainPanel extends JFrame implements ActionListener, WindowListener{
 			});
 	}
 	
-	public boolean createProducer (int sizeProducers, int timeProducers) {
+	public boolean createProducer (int sizeProducers, int timeProducers, int n, int m) {
 		while(sizeProducers != 0) {
-			Producer producer = new Producer(buffer);
+			Producer producer = new Producer(buffer, n, m);
+			producer.start();
 			try {
 				Thread.sleep(timeProducers);
 			} catch (Exception e) {
@@ -215,6 +219,7 @@ public class MainPanel extends JFrame implements ActionListener, WindowListener{
 	public boolean createConsumer (int sizeConsumers, int timeConsumers) {
 		while(sizeConsumers!= 0) {
 			Consumer consumer = new Consumer(buffer);
+			consumer.start();
 			try {
 				Thread.sleep(timeConsumers);
 			} catch (Exception e) {
