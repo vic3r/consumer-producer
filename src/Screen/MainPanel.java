@@ -1,6 +1,5 @@
 package Screen;
 
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Rectangle;
@@ -19,11 +18,10 @@ import javax.swing.JPanel;
 
 import GraphicComponents.BootstrapButton;
 import GraphicComponents.BootstrapPanel;
-import GraphicComponents.BootstrapCheckBox;
 import GraphicPanels.BottomPanel;
 import GraphicPanels.TitlePanel;
 
-public class CPGeneral extends JFrame implements ActionListener, WindowListener{
+public class MainPanel extends JFrame implements ActionListener, WindowListener{
 	
 	private static final long serialVersionUID = 1L;
 
@@ -33,24 +31,26 @@ public class CPGeneral extends JFrame implements ActionListener, WindowListener{
 	
 	static Container C;
 
-	private BootstrapCheckBox jcb;
-	private BootstrapButton jb2;
-	private BootstrapButton jb1;
-	private BottomPanel bp;
-	private BootstrapPanel jpEmail;
+	private BootstrapButton jbStop;
+	private BootstrapButton jbStart;
+	private BottomPanel bpPanel;
 	private BootstrapPanel noConsumers;
+	private BootstrapPanel timeProducers;
 	private BootstrapPanel noProducers;
 	private JPanel content;
 	private TitlePanel tp;
+
+	private BootstrapPanel timeConsumers;
+
+	private BootstrapPanel bufferSize;
 	
-	public CPGeneral(){
+	public MainPanel(){
 		super("Programming Languages Project");
 		setSize(1200,600);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setResizable(false);
-		//setResizable(false);
-		//setLayout(null);
+		
 		addWindowListener(this);
 		
 		C = getContentPane();
@@ -121,28 +121,33 @@ public class CPGeneral extends JFrame implements ActionListener, WindowListener{
 		noProducers.setBounds(40,20,340,60);
 		content.add(noProducers);
 		
+		timeProducers = new BootstrapPanel("/Images/fantasma.png", "Time producers (ms)");
+		timeProducers.setBounds(400,20,340,60);
+		content.add(timeProducers);
+		
 		noConsumers = new BootstrapPanel("/Images/fantasma.png", "No. Consumers");
-		noConsumers.setBounds(400,20,340,60);
+		noConsumers.setBounds(40,100,340,60);
 		content.add(noConsumers);
 		
-		jpEmail = new BootstrapPanel("/Images/mail.png", "E-Mail");
-		jpEmail.setBounds(40,100,700,60);
-		content.add(jpEmail);
+		timeConsumers = new BootstrapPanel("/Images/fantasma.png", "Time consumers (ms)");
+		timeConsumers.setBounds(400,100,340,60);
+		content.add(timeConsumers);
 		
-		jcb = new BootstrapCheckBox("Send me promotions and offers", new Color(138, 147, 179), new Color(114, 132, 193));
-		jcb.setBounds(40,180,700,60);
-		content.add(jcb);
+		bufferSize = new BootstrapPanel("/Images/fantasma.png", "Buffer Size");
+		bufferSize.setBounds(40,180,340,60);
+		content.add(bufferSize);
 		
-		jb2 = new BootstrapButton("Reset", BootstrapButton.DANGER_TYPE);
-		jb2.setBounds(590,265,150,50);
-		content.add(jb2);
 		
-		jb1 = new BootstrapButton("Submit", BootstrapButton.SUCCESS_TYPE);
-		jb1.setBounds(420,265,150,50);
-		content.add(jb1);
+		jbStop = new BootstrapButton("Stop", BootstrapButton.DANGER_TYPE);
+		jbStop.setBounds(590,265,150,50);
+		content.add(jbStop);
 		
-		bp = new BottomPanel(new Rectangle(0,475,800,100));
-		C.add(bp);
+		jbStart = new BootstrapButton("Start", BootstrapButton.SUCCESS_TYPE);
+		jbStart.setBounds(420,265,150,50);
+		content.add(jbStart);
+		
+		bpPanel = new BottomPanel(new Rectangle(0,475,800,100));
+		C.add(bpPanel);
 		
 		
 	}
