@@ -15,7 +15,7 @@ import java.util.logging.Logger;
     
     private Queue<Character> bufferStorage;
     
-    Buffer() {
+    public Buffer() {
         this.bufferStorage = new LinkedList<Character>();
     }
     

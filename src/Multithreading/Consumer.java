@@ -14,7 +14,7 @@ public class Consumer extends Thread {
     private Buffer buffer;
     private int timeInMillis;
     
-    Consumer(Buffer buffer) {
+    public Consumer(Buffer buffer) {
         this.buffer = buffer;
         timeInMillis = 1000;
     }
