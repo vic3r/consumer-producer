@@ -20,7 +20,6 @@ import javax.swing.JPanel;
 
 import GraphicComponents.BootstrapButton;
 import GraphicComponents.BootstrapPanel;
-import GraphicComponents.BootstrapSpinner;
 import GraphicPanels.BottomPanel;
 import GraphicPanels.TitlePanel;
 import Graphics.ProducerConsumer;
@@ -124,7 +123,7 @@ public class MainPanel extends JFrame implements ActionListener, WindowListener{
 		leadContainer.add(titlePanel);
 		
 		content = new JPanel();
-		content.setBounds(new Rectangle(0,135,800,440));
+		content.setBounds(new Rectangle(0,135,1100,440));
 		content.setLayout(null);
 		leadContainer.add(content);
 		
@@ -148,15 +147,11 @@ public class MainPanel extends JFrame implements ActionListener, WindowListener{
 		bufferSize.setBounds(40,180,340,60);
 		content.add(bufferSize);
 		
-		rangeValues = new BootstrapPanel("/Images/number.png", "Values Range (n, m)");
+		rangeValues = new BootstrapPanel("/Images/number.png", "Value n");
 		rangeValues.setBounds(40,260,340,60);
 		content.add(rangeValues);
 		
-//		rangeValuesTime = new BootstrapPanel("/Images/timeValues.png", "Range Time (ms)");
-//		rangeValuesTime.setBounds(400, 260,360,60);
-//		content.add(rangeValuesTime);
-		
-		BootstrapSpinner rangeValuesTime = new BootstrapSpinner("/Images/timeValues.png");
+		rangeValuesTime = new BootstrapPanel("/Images/timeValues.png", "Value m");
 		rangeValuesTime.setBounds(400, 260,360,60);
 		content.add(rangeValuesTime);
 		
@@ -197,7 +192,6 @@ public class MainPanel extends JFrame implements ActionListener, WindowListener{
 			public void mouseClicked(MouseEvent e) {
 				// TODO Auto-generated method stub
 				if(e.getSource() == this) {
-					ProducerConsumer produceConsumer = new ProducerConsumer();
 					Buffer buffer = new Buffer();
 					Producer producer = new Producer(buffer);
 					producer.start(); 
