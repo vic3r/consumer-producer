@@ -29,7 +29,7 @@ public class MainPanel extends JFrame implements ActionListener, WindowListener{
 	private JMenu endBarMenu;
 	private JMenuItem barMenuItem;
 	
-	static Container C;
+	static Container leadContainer;
 
 	private BootstrapButton jbStop;
 	private BootstrapButton jbStart;
@@ -38,23 +38,25 @@ public class MainPanel extends JFrame implements ActionListener, WindowListener{
 	private BootstrapPanel timeProducers;
 	private BootstrapPanel noProducers;
 	private JPanel content;
-	private TitlePanel tp;
-
+	private TitlePanel titlePanel;
 	private BootstrapPanel timeConsumers;
-
 	private BootstrapPanel bufferSize;
+
+	private BootstrapPanel rangeValues;
+
+	private BootstrapPanel rangeValuesTime;
 	
 	public MainPanel(){
 		super("Programming Languages Project");
-		setSize(1200,600);
+		setSize(1200,700);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setResizable(false);
 		
 		addWindowListener(this);
 		
-		C = getContentPane();
-		C.setLayout(null);
+		leadContainer = getContentPane();
+		leadContainer.setLayout(null);
 		
 		initComponents();
 		
@@ -74,7 +76,7 @@ public class MainPanel extends JFrame implements ActionListener, WindowListener{
 			@Override
 			public void componentResized(ComponentEvent arg0) {
 				
-				for(Component c: C.getComponents()){
+				for(Component c: leadContainer.getComponents()){
 					//System.out.println(c.getClass().getSimpleName());
 					if(
 							c.getClass().getSimpleName().equals("JMenuBar") ||
@@ -98,7 +100,7 @@ public class MainPanel extends JFrame implements ActionListener, WindowListener{
 	public void initComponents(){
 		barMenu = new JMenuBar();
 		barMenu.setBounds(0, 0, 800, 20);
-		C.add(barMenu);
+		leadContainer.add(barMenu);
 		
 		//BEGIN - ARQUIVO
 		endBarMenu = new JMenu("PPCDSALVC");
@@ -109,45 +111,53 @@ public class MainPanel extends JFrame implements ActionListener, WindowListener{
 		endBarMenu.add(barMenuItem);
 		//END - ARQUIVO
 		
-		tp = new TitlePanel(new Rectangle(0, 35, 800, 100));
-		C.add(tp);
+		titlePanel = new TitlePanel(new Rectangle(0, 35, 800, 100));
+		leadContainer.add(titlePanel);
 		
 		content = new JPanel();
-		content.setBounds(new Rectangle(0,135,800,340));
+		content.setBounds(new Rectangle(0,135,800,440));
 		content.setLayout(null);
-		C.add(content);
+		leadContainer.add(content);
 		
 		noProducers = new BootstrapPanel("/Images/pacman.png", "No. Producers");
 		noProducers.setBounds(40,20,340,60);
 		content.add(noProducers);
 		
-		timeProducers = new BootstrapPanel("/Images/fantasma.png", "Time producers (ms)");
-		timeProducers.setBounds(400,20,340,60);
+		timeProducers = new BootstrapPanel("/Images/timeGood.png", "Time producers (ms)");
+		timeProducers.setBounds(400,20,360,60);
 		content.add(timeProducers);
 		
 		noConsumers = new BootstrapPanel("/Images/fantasma.png", "No. Consumers");
 		noConsumers.setBounds(40,100,340,60);
 		content.add(noConsumers);
 		
-		timeConsumers = new BootstrapPanel("/Images/fantasma.png", "Time consumers (ms)");
-		timeConsumers.setBounds(400,100,340,60);
+		timeConsumers = new BootstrapPanel("/Images/timeEnemy.png", "Time consumers (ms)");
+		timeConsumers.setBounds(400,100,360,60);
 		content.add(timeConsumers);
 		
 		bufferSize = new BootstrapPanel("/Images/fantasma.png", "Buffer Size");
 		bufferSize.setBounds(40,180,340,60);
 		content.add(bufferSize);
 		
+		rangeValues = new BootstrapPanel("/Images/fantasma.png", "Values Range (n, m)");
+		rangeValues.setBounds(40,260,340,60);
+		content.add(rangeValues);
+		
+		rangeValuesTime = new BootstrapPanel("/Images/timeEnemy.png", "Range Time (ms)");
+		rangeValuesTime.setBounds(400, 260,360,60);
+		content.add(rangeValuesTime);
 		
 		jbStop = new BootstrapButton("Stop", BootstrapButton.DANGER_TYPE);
-		jbStop.setBounds(590,265,150,50);
+		jbStop.setBounds(590,365,150,50);
 		content.add(jbStop);
 		
 		jbStart = new BootstrapButton("Start", BootstrapButton.SUCCESS_TYPE);
-		jbStart.setBounds(420,265,150,50);
+		jbStart.setBounds(420,365,150,50);
 		content.add(jbStart);
 		
-		bpPanel = new BottomPanel(new Rectangle(0,475,800,100));
-		C.add(bpPanel);
+		
+		bpPanel = new BottomPanel(new Rectangle(0,575,800,100));
+		leadContainer.add(bpPanel);
 		
 		
 	}
