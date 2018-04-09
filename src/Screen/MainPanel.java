@@ -300,7 +300,7 @@ public class MainPanel extends JFrame implements ActionListener, WindowListener{
 						
 						int bufferLength = Integer.parseInt(bufferSize.getText());
 						
-						buffer = new Buffer(bufferLength, waitTimeConsumers, waitTimeProducers, MainPanel.this);
+						buffer = new Buffer(bufferLength, MainPanel.this);
 						
 						int n = Integer.parseInt(valuesN.getText());
 						int m = Integer.parseInt(valuesM.getText());
@@ -311,11 +311,11 @@ public class MainPanel extends JFrame implements ActionListener, WindowListener{
 							
 						}else{
 							new Thread(() -> {
-								createProducer(producersQuantity, waitTimeProducers, n, m);
+								createProducer(producersQuantity, waitTimeProducers, n, m, waitTimeProducers);
 							}).start();
 								
 							new Thread(() -> {
-								createConsumer(consumersQuantity, waitTimeConsumers);
+								createConsumer(consumersQuantity, waitTimeConsumers, waitTimeConsumers);
 							}).start();
 						}
 					} catch(Exception except) {
@@ -339,9 +339,9 @@ public class MainPanel extends JFrame implements ActionListener, WindowListener{
 		});
 	}
 	
-	public boolean createProducer (int sizeProducers, int timeProducers, int n, int m) {
+	public boolean createProducer (int sizeProducers, int timeProducers, int n, int m, int sleepTime) {
 		while(sizeProducers != 0) {
-			Producer producer = new Producer(buffer, n, m, this);
+			Producer producer = new Producer(buffer, n, m, this, sleepTime);
 			producers.add(producer);
 			producer.start();
 			
@@ -358,9 +358,9 @@ public class MainPanel extends JFrame implements ActionListener, WindowListener{
 		return sizeProducers == 0? true : false;
 	}
 	
-	public boolean createConsumer (int sizeConsumers, int timeConsumers) {
+	public boolean createConsumer (int sizeConsumers, int timeConsumers, int sleepTime) {
 		while(sizeConsumers!= 0) {
-			Consumer consumer = new Consumer(buffer, this);
+			Consumer consumer = new Consumer(buffer, this, sleepTime);
 			consumers.add(consumer);
 			consumer.start();
 			try {
