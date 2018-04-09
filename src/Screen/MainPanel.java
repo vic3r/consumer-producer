@@ -1,7 +1,9 @@
 package Screen;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Font;
 import java.awt.List;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
@@ -14,12 +16,17 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.ArrayList;
 
+import javax.swing.DebugGraphics;
+import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import GraphicComponents.BootstrapButton;
 import GraphicComponents.BootstrapPanel;
@@ -55,6 +62,18 @@ public class MainPanel extends JFrame implements ActionListener, WindowListener{
 	private ArrayList<Producer> producers;
 	private ArrayList<Consumer> consumers;
 	private Buffer buffer;
+
+	private DefaultListModel<String> modelRemainingTasks;
+
+	private DefaultListModel modelCompletedTasks;
+
+	private JList<String> listRemainingOps;
+
+	private JList<String> listRemainingOps2;
+
+	private JList listCompletedOps;
+
+	private JScrollPane completedOpsPanel;
 	
 	public MainPanel(){
 		super("Programming Languages Project");
@@ -169,9 +188,52 @@ public class MainPanel extends JFrame implements ActionListener, WindowListener{
 		jbStart.setBounds(420,365,150,50);
 		content.add(jbStart);
 		
+		JLabel remaining = new JLabel("Remaining tasks");
+		remaining.setBounds(900,-30,200,100);
+		remaining.setFont(new Font("SansSerif", Font.TRUETYPE_FONT, 15));
+		remaining.setForeground(new Color(115,115,115));
+		content.add(remaining);
+		
+		
+		modelRemainingTasks = new DefaultListModel<>();
+		
+		listRemainingOps = new JList<>(modelRemainingTasks); 
+		
+		JScrollPane remainingOpsPanel = new JScrollPane(listRemainingOps);
+		remainingOpsPanel.setBounds(800,30,300,180);
+		content.add(remainingOpsPanel);
+		
+		JLabel completed = new JLabel("Completed tasks");
+		completed.setBounds(900,175,200,100);
+		completed.setFont(new Font("SansSerif", Font.TRUETYPE_FONT, 15));
+		completed.setForeground(new Color(115,115,115));
+		content.add(completed);
+		
+		modelCompletedTasks = new DefaultListModel<>();
+		listCompletedOps = new JList<>(modelCompletedTasks); 
+		modelCompletedTasks.addElement("Holi");
+		
+		completedOpsPanel = new JScrollPane(listCompletedOps);
+		completedOpsPanel.setBounds(800,240,300,180);
+		content.add(completedOpsPanel);
+		
 		
 		bpPanel = new BottomPanel(new Rectangle(0,575,800,100));
 		leadContainer.add(bpPanel);
+		
+	}
+	
+	public void addElementToRemainingList(String remainingElement) {
+		modelRemainingTasks.addElement(remainingElement);
+	}
+	
+	public void removeElementOfRemainingList() {
+		int indexToRemove = 1;
+		
+		if(modelRemainingTasks.getElementAt(0) != null) {
+			indexToRemove = 0; 
+		}
+		modelRemainingTasks.removeElementAt(indexToRemove);
 		
 	}
 	
@@ -222,9 +284,11 @@ public class MainPanel extends JFrame implements ActionListener, WindowListener{
 	
 	public boolean createProducer (int sizeProducers, int timeProducers, int n, int m) {
 		while(sizeProducers != 0) {
-			Producer producer = new Producer(buffer, n, m);
+			Producer producer = new Producer(buffer, n, m, this);
 			producers.add(producer);
 			producer.start();
+			
+			
 			try {
 				Thread.sleep(timeProducers);
 			} catch (Exception e) {
@@ -239,7 +303,7 @@ public class MainPanel extends JFrame implements ActionListener, WindowListener{
 	
 	public boolean createConsumer (int sizeConsumers, int timeConsumers) {
 		while(sizeConsumers!= 0) {
-			Consumer consumer = new Consumer(buffer);
+			Consumer consumer = new Consumer(buffer, this);
 			consumers.add(consumer);
 			consumer.start();
 			try {

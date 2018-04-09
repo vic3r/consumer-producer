@@ -28,7 +28,7 @@ import java.util.logging.Logger;
     
     synchronized String consume() {
     	System.out.println(bufferStorage.size());
-         while(this.bufferStorage.isEmpty()) {
+         while(this.bufferStorage.isEmpty() || this.bufferLength == this.bufferStorage.size()) {
             try {
                 wait(1000);
             } catch(InterruptedException e) {

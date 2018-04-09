@@ -4,6 +4,8 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import Screen.MainPanel;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -16,12 +18,14 @@ public class Producer extends Thread {
     private boolean isStart;
     private LispOperations randomOperations;
 	private long sleepTime;
+	private MainPanel mainPanel;
     
-    public Producer( Buffer buffer, int n, int m) {
+    public Producer( Buffer buffer, int n, int m, MainPanel mainPanel) {
         this.buffer = buffer;
         this.isStart = true;
         this.randomOperations = new LispOperations(n,m);
         this.sleepTime = 1000;
+        this.mainPanel = mainPanel;
     }
     
     @Override
@@ -37,6 +41,7 @@ public class Producer extends Thread {
     	   String product = this.randomOperations.createOperation();
            this.buffer.produce(product);
            System.out.println("Producer produced: " + product);
+           mainPanel.addElementToRemainingList("Producer produced: " + product);
           
            try {
                Thread.sleep(this.sleepTime);

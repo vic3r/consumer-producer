@@ -3,6 +3,8 @@ package Multithreading;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import Screen.MainPanel;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -13,10 +15,12 @@ import java.util.logging.Logger;
 public class Consumer extends Thread {
     private Buffer buffer;
 	private long sleepTime;
+	private MainPanel mainPanel;
     
-    public Consumer(Buffer buffer) {
+    public Consumer(Buffer buffer, MainPanel mainPanel) {
         this.buffer = buffer;
         this.sleepTime = 1000;
+        this.mainPanel = mainPanel;
     }
     
     @Override
@@ -28,7 +32,8 @@ public class Consumer extends Thread {
             product = this.buffer.consume();
             if (product != null) {
             	System.out.println("Consumer consumed: " + getResult(product)); 
-	            try {
+	            mainPanel.removeElementOfRemainingList();
+            	try {
 	               Thread.sleep(this.sleepTime);
 	           } catch(InterruptedException e) {
 	                Logger.getLogger(Buffer.class.getName()).log(Level.SEVERE, null, e);
