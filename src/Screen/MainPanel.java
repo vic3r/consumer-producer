@@ -136,7 +136,6 @@ public class MainPanel extends JFrame implements ActionListener, WindowListener{
 		barMenu.setBounds(0, 0, 800, 20);
 		leadContainer.add(barMenu);
 		
-		//BEGIN - ARQUIVO
 		endBarMenu = new JMenu("PPCDSALVC");
 		barMenu.add(endBarMenu);
 		
@@ -152,6 +151,58 @@ public class MainPanel extends JFrame implements ActionListener, WindowListener{
 		content.setLayout(null);
 		leadContainer.add(content);
 		
+		createBootstrapComponents();
+		createBootstrapButtons();
+		addRemainingOpsPanel();
+		addCompletedOpsPanel();
+		
+		bpPanel = new BottomPanel(new Rectangle(0,575,800,100));
+		leadContainer.add(bpPanel);
+		
+	}
+
+	public void addCompletedOpsPanel() {
+		JLabel completed = new JLabel("Completed tasks");
+		completed.setBounds(900,175,200,100);
+		completed.setFont(new Font("SansSerif", Font.TRUETYPE_FONT, 15));
+		completed.setForeground(new Color(115,115,115));
+		content.add(completed);
+		
+		modelCompletedTasks = new DefaultListModel<>();
+		listCompletedOps = new JList<>(modelCompletedTasks); 
+		modelCompletedTasks.addElement("Holi");
+		
+		completedOpsPanel = new JScrollPane(listCompletedOps);
+		completedOpsPanel.setBounds(800,240,300,180);
+		content.add(completedOpsPanel);
+	}
+
+	public void addRemainingOpsPanel() {
+		JLabel remaining = new JLabel("Remaining tasks");
+		remaining.setBounds(900,-30,200,100);
+		remaining.setFont(new Font("SansSerif", Font.TRUETYPE_FONT, 15));
+		remaining.setForeground(new Color(115,115,115));
+		content.add(remaining);
+		modelRemainingTasks = new DefaultListModel<>();
+		
+		listRemainingOps = new JList<>(modelRemainingTasks); 
+		
+		JScrollPane remainingOpsPanel = new JScrollPane(listRemainingOps);
+		remainingOpsPanel.setBounds(800,30,300,180);
+		content.add(remainingOpsPanel);
+	}
+
+	public void createBootstrapButtons() {
+		jbStop = new BootstrapButton("Stop", BootstrapButton.DANGER_TYPE);
+		jbStop.setBounds(590,365,150,50);
+		content.add(jbStop);
+		
+		jbStart = new BootstrapButton("Start", BootstrapButton.SUCCESS_TYPE);
+		jbStart.setBounds(420,365,150,50);
+		content.add(jbStart);
+	}
+
+	public void createBootstrapComponents() {
 		noProducers = new BootstrapPanel("/Images/pacman.png", "No. Producers");
 		noProducers.setBounds(40,20,340,60);
 		content.add(noProducers);
@@ -179,48 +230,6 @@ public class MainPanel extends JFrame implements ActionListener, WindowListener{
 		valuesM = new BootstrapPanel("/Images/timeValues.png", "Value m");
 		valuesM.setBounds(400, 260,360,60);
 		content.add(valuesM);
-		
-		jbStop = new BootstrapButton("Stop", BootstrapButton.DANGER_TYPE);
-		jbStop.setBounds(590,365,150,50);
-		content.add(jbStop);
-		
-		jbStart = new BootstrapButton("Start", BootstrapButton.SUCCESS_TYPE);
-		jbStart.setBounds(420,365,150,50);
-		content.add(jbStart);
-		
-		JLabel remaining = new JLabel("Remaining tasks");
-		remaining.setBounds(900,-30,200,100);
-		remaining.setFont(new Font("SansSerif", Font.TRUETYPE_FONT, 15));
-		remaining.setForeground(new Color(115,115,115));
-		content.add(remaining);
-		
-		
-		modelRemainingTasks = new DefaultListModel<>();
-		
-		listRemainingOps = new JList<>(modelRemainingTasks); 
-		
-		JScrollPane remainingOpsPanel = new JScrollPane(listRemainingOps);
-		remainingOpsPanel.setBounds(800,30,300,180);
-		content.add(remainingOpsPanel);
-		
-		JLabel completed = new JLabel("Completed tasks");
-		completed.setBounds(900,175,200,100);
-		completed.setFont(new Font("SansSerif", Font.TRUETYPE_FONT, 15));
-		completed.setForeground(new Color(115,115,115));
-		content.add(completed);
-		
-		modelCompletedTasks = new DefaultListModel<>();
-		listCompletedOps = new JList<>(modelCompletedTasks); 
-		modelCompletedTasks.addElement("Holi");
-		
-		completedOpsPanel = new JScrollPane(listCompletedOps);
-		completedOpsPanel.setBounds(800,240,300,180);
-		content.add(completedOpsPanel);
-		
-		
-		bpPanel = new BottomPanel(new Rectangle(0,575,800,100));
-		leadContainer.add(bpPanel);
-		
 	}
 	
 	public void addElementToRemainingList(String remainingElement) {
@@ -228,17 +237,26 @@ public class MainPanel extends JFrame implements ActionListener, WindowListener{
 	}
 	
 	public void removeElementOfRemainingList() {
-		int indexToRemove = 1;
-		
-		if(modelRemainingTasks.getElementAt(0) != null) {
-			indexToRemove = 0; 
+		try {
+			int indexToRemove = 1;
+			
+			if(modelRemainingTasks.getElementAt(0) != null) {
+				indexToRemove = 0; 
+			}
+			modelRemainingTasks.removeElementAt(indexToRemove);
+		} catch(Exception e) {
+			
 		}
-		modelRemainingTasks.removeElementAt(indexToRemove);
 		
 	}
 	
 	public void addElementToCompletedList(String completedTask) {
-		modelCompletedTasks.addElement(completedTask);
+		try {
+			modelCompletedTasks.addElement(completedTask);
+		} catch(Exception e) {
+			
+		}
+		
 	}
 	
 	public void addButtonEvents() {
@@ -248,7 +266,6 @@ public class MainPanel extends JFrame implements ActionListener, WindowListener{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-					
 					try {
 						int producersQuantity = Integer.parseInt(noProducers.getText());
 						int consumersQuantity = Integer.parseInt(noConsumers.getText());
