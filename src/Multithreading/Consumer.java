@@ -31,8 +31,10 @@ public class Consumer extends Thread {
         while (true) {
             product = this.buffer.consume();
             if (product != null) {
-            	System.out.println("Consumer consumed: " + getResult(product)); 
+            	double result = getResult(product);
+            	System.out.println("Consumer consumed: " + result); 
 	            mainPanel.removeElementOfRemainingList();
+	            mainPanel.addElementToCompletedList(product+"= "+result);
             	try {
 	               Thread.sleep(this.sleepTime);
 	           } catch(InterruptedException e) {
@@ -57,7 +59,7 @@ public class Consumer extends Thread {
 	    		valueToShow = (double) (Integer.parseInt(result[1]) * Integer.parseInt(result [2]));
 	    		break;
 	    	case '/':
-	    		valueToShow = (double) (Integer.parseInt(result[1]) / Integer.parseInt(result [2]));
+	    		valueToShow = Double.parseDouble(result[1]) / Double.parseDouble(result [2]);
 	    		break;
     	}
     	

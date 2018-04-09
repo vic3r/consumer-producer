@@ -237,6 +237,10 @@ public class MainPanel extends JFrame implements ActionListener, WindowListener{
 		
 	}
 	
+	public void addElementToCompletedList(String completedTask) {
+		modelCompletedTasks.addElement(completedTask);
+	}
+	
 	public void addButtonEvents() {
 		
 		jbStart.addActionListener(new ActionListener() {
