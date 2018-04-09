@@ -29,7 +29,7 @@ public class LispOperations {
    }
    
    public int getNumber() {
-       int randNumber = random.nextInt((m - n) + 1) + m;
+       int randNumber = random.nextInt((m - n) + 1) + n;
        return randNumber;
    }
    
