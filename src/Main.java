@@ -8,15 +8,7 @@ public class Main {
 				
 		MainPanel cpGeneral = new MainPanel();
 		cpGeneral.setVisible(true);
-		//ProducerConsumer produceConsumer = new ProducerConsumer();
-		//     Buffer buffer = new Buffer();
-		    
-		//    
-		//    Producer producer = new Producer(buffer);
-		//    producer.start();
-		//    
-		//    Consumer consumer = new Consumer(buffer);
-		//    consumer.start();
+
 	}
 
 }
