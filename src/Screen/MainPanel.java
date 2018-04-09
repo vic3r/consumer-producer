@@ -299,7 +299,6 @@ public class MainPanel extends JFrame implements ActionListener, WindowListener{
 						int waitTimeConsumers = Integer.parseInt(timeConsumers.getText());
 						
 						int bufferLength = Integer.parseInt(bufferSize.getText());
-						
 						buffer = new Buffer(bufferLength, MainPanel.this);
 						
 						int n = Integer.parseInt(valuesN.getText());

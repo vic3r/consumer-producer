@@ -41,7 +41,7 @@ public class Consumer extends Thread {
             } catch (InterruptedException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
-			}try {
+			       }try {
 	               Thread.sleep(this.sleepTime);
 	           } catch(InterruptedException e) {
 	                Logger.getLogger(Buffer.class.getName()).log(Level.SEVERE, null, e);

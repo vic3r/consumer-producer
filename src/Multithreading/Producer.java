@@ -16,8 +16,8 @@ public class Producer extends Thread {
     private Buffer buffer;
     private boolean isStart;
     private LispOperations randomOperations;
-	private long sleepTime;
-	private MainPanel mainPanel;
+	  private long sleepTime;
+	  private MainPanel mainPanel;
     
     public Producer( Buffer buffer, int n, int m, MainPanel mainPanel, int sleepTime) {
         this.buffer = buffer;
