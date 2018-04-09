@@ -19,31 +19,29 @@ public class Producer extends Thread {
 	private long sleepTime;
 	private MainPanel mainPanel;
     
-    public Producer( Buffer buffer, int n, int m, MainPanel mainPanel) {
+    public Producer( Buffer buffer, int n, int m, MainPanel mainPanel, int sleepTime) {
         this.buffer = buffer;
         this.isStart = true;
         this.randomOperations = new LispOperations(n,m);
-        this.sleepTime = 1000;
+        this.sleepTime = sleepTime;
         this.mainPanel = mainPanel;
     }
     
     @Override
     public void run() {
        System.out.println("Running producer...");
-       //String products = "AEIOU";
-       //Random r = new Random(System.currentTimeMillis());
-       
-       //char product = 0;
        
        while (isStart) {
-         //  product = products.charAt(r.nextInt(5));
     	   String product = this.randomOperations.createOperation();
-           this.buffer.produce(product);
+           try {
+			this.buffer.produce(product);
+           } catch (InterruptedException e1) {
+        	   e1.printStackTrace();
+           }
            System.out.println("Producer produced: " + product);
            mainPanel.addElementToRemainingList("Producer produced: " + product);
-          
            try {
-               Thread.sleep(this.sleepTime);
+               Thread.sleep(sleepTime);
            } catch(InterruptedException e) {
                 Logger.getLogger(Buffer.class.getName()).log(Level.SEVERE, null, e);
            }

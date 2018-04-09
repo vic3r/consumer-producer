@@ -17,9 +17,9 @@ public class Consumer extends Thread {
 	private long sleepTime;
 	private MainPanel mainPanel;
     
-    public Consumer(Buffer buffer, MainPanel mainPanel) {
+    public Consumer(Buffer buffer, MainPanel mainPanel, int sleepTime) {
         this.buffer = buffer;
-        this.sleepTime = 1000;
+        this.sleepTime = sleepTime;
         this.mainPanel = mainPanel;
     }
     
@@ -29,19 +29,26 @@ public class Consumer extends Thread {
         String product;
         
         while (true) {
-            product = this.buffer.consume();
+            try {
+				product = this.buffer.consume();
+			
             if (product != null) {
             	double result = getResult(product);
             	System.out.println("Consumer consumed: " + result); 
 	            mainPanel.removeElementOfRemainingList();
 	            mainPanel.addElementToCompletedList(product+"= "+result);
-            	try {
+            	}
+            } catch (InterruptedException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}try {
 	               Thread.sleep(this.sleepTime);
 	           } catch(InterruptedException e) {
 	                Logger.getLogger(Buffer.class.getName()).log(Level.SEVERE, null, e);
 	           }
            }
-        } 
+        
+       
     }
     
     public double getResult(String product) {
