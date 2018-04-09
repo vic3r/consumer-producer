@@ -2,6 +2,7 @@ package Screen;
 
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.List;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,6 +12,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -50,6 +52,8 @@ public class MainPanel extends JFrame implements ActionListener, WindowListener{
 	private BootstrapPanel valuesN;
 	private BootstrapPanel valuesM;
 	
+	private ArrayList<Producer> producers;
+	private ArrayList<Consumer> consumers;
 	private Buffer buffer;
 	
 	public MainPanel(){
@@ -63,6 +67,9 @@ public class MainPanel extends JFrame implements ActionListener, WindowListener{
 		
 		leadContainer = getContentPane();
 		leadContainer.setLayout(null);
+		
+		this.producers = new ArrayList<>();
+		this.consumers = new ArrayList<>();
 		
 		initComponents();
 		addButtonEvents();
@@ -198,11 +205,26 @@ public class MainPanel extends JFrame implements ActionListener, WindowListener{
 					
 				}
 			});
+		
+		jbStop.addActionListener( new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				for(Producer producer: producers) {
+					producer.interrupt();
+				}
+				for(Consumer consumer: consumers) {
+					consumer.interrupt();
+				}
+				
+			}
+		});
 	}
 	
 	public boolean createProducer (int sizeProducers, int timeProducers, int n, int m) {
 		while(sizeProducers != 0) {
 			Producer producer = new Producer(buffer, n, m);
+			producers.add(producer);
 			producer.start();
 			try {
 				Thread.sleep(timeProducers);
@@ -219,6 +241,7 @@ public class MainPanel extends JFrame implements ActionListener, WindowListener{
 	public boolean createConsumer (int sizeConsumers, int timeConsumers) {
 		while(sizeConsumers!= 0) {
 			Consumer consumer = new Consumer(buffer);
+			consumers.add(consumer);
 			consumer.start();
 			try {
 				Thread.sleep(timeConsumers);

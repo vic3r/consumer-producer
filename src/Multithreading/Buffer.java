@@ -20,16 +20,17 @@ import java.util.logging.Logger;
     
     public Buffer(int length, int sleepConsumer, int sleepProductor) {
        // this.bufferStorage = new LinkedList<>(Arrays.asList(new String[length]));
-        this.bufferStorage = new LinkedList<>();
+        this.bufferStorage = new LinkedList<String>();
         this.bufferLength = length;
         this.sleepConsumer = sleepConsumer;
         this.sleepProductor = sleepProductor;
     }
     
     synchronized String consume() {
-         if(this.bufferStorage.isEmpty()) {
+    	System.out.println(bufferStorage.size());
+         while(this.bufferStorage.isEmpty()) {
             try {
-                wait(sleepProductor);
+                wait(1000);
             } catch(InterruptedException e) {
                 Logger.getLogger(Buffer.class.getName()).log(Level.SEVERE, null, e);
             }
@@ -42,9 +43,9 @@ import java.util.logging.Logger;
     
     synchronized void produce(String product) {
 
-        if(!this.bufferStorage.isEmpty() || this.bufferStorage.size() == bufferLength){
+        if(!this.bufferStorage.isEmpty()){
                try {
-                wait(sleepConsumer);
+                wait(1000);
             } catch(InterruptedException e) {
                 Logger.getLogger(Buffer.class.getName()).log(Level.SEVERE, null, e);
             }
