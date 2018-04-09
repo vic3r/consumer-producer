@@ -1,6 +1,5 @@
 package Multithreading;
 
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.logging.Level;
@@ -30,7 +29,7 @@ import java.util.logging.Logger;
     	System.out.println(bufferStorage.size());
          while(this.bufferStorage.isEmpty() || this.bufferLength == this.bufferStorage.size()) {
             try {
-                wait(1000);
+                wait(sleepConsumer);
             } catch(InterruptedException e) {
                 Logger.getLogger(Buffer.class.getName()).log(Level.SEVERE, null, e);
             }
@@ -45,7 +44,7 @@ import java.util.logging.Logger;
 
         if(!this.bufferStorage.isEmpty()){
                try {
-                wait(1000);
+                wait(sleepProductor);
             } catch(InterruptedException e) {
                 Logger.getLogger(Buffer.class.getName()).log(Level.SEVERE, null, e);
             }
@@ -56,8 +55,4 @@ import java.util.logging.Logger;
         notifyAll();
     }
     
-    private int getStorageLength() {
-        int storageLength = this.bufferStorage.size();
-        return storageLength;
-    }
 }

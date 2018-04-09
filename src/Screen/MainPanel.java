@@ -4,19 +4,15 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Font;
-import java.awt.List;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.ArrayList;
 
-import javax.swing.DebugGraphics;
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -64,16 +60,16 @@ public class MainPanel extends JFrame implements ActionListener, WindowListener{
 	private Buffer buffer;
 
 	private DefaultListModel<String> modelRemainingTasks;
-
-	private DefaultListModel modelCompletedTasks;
-
+	private DefaultListModel<String> modelCompletedTasks;
 	private JList<String> listRemainingOps;
-
-	private JList<String> listRemainingOps2;
-
-	private JList listCompletedOps;
+	private JList<String> listCompletedOps;
 
 	private JScrollPane completedOpsPanel;
+	private JLabel remaining;
+	private JLabel completed;
+	private JLabel completedCounter;
+	private JScrollPane remainingOpsPanel;
+	private JLabel remainingCounter;
 	
 	public MainPanel(){
 		super("Programming Languages Project");
@@ -118,9 +114,7 @@ public class MainPanel extends JFrame implements ActionListener, WindowListener{
 							c.getClass().getSimpleName().equals("TitlePanel") ||
 							c.getClass().getSimpleName().equals("BottomPanel"))
 						c.setSize(getWidth(), c.getHeight());
-				}
-				
-				
+				}	
 			}
 
 			@Override
@@ -147,7 +141,7 @@ public class MainPanel extends JFrame implements ActionListener, WindowListener{
 		leadContainer.add(titlePanel);
 		
 		content = new JPanel();
-		content.setBounds(new Rectangle(0,135,1100,440));
+		content.setBounds(new Rectangle(0,135,1200,440));
 		content.setLayout(null);
 		leadContainer.add(content);
 		
@@ -155,15 +149,30 @@ public class MainPanel extends JFrame implements ActionListener, WindowListener{
 		createBootstrapButtons();
 		addRemainingOpsPanel();
 		addCompletedOpsPanel();
+		remainingDividedByBuffer();
 		
 		bpPanel = new BottomPanel(new Rectangle(0,575,800,100));
 		leadContainer.add(bpPanel);
 		
 	}
-
+	
+	public void remainingDividedByBuffer() {
+		JLabel remainingDividedByBufferSize = new JLabel("2"+"/"+"10");
+		remainingDividedByBufferSize.setBounds(1090,175,200,100);
+		remainingDividedByBufferSize.setFont(new Font("SansSerif", Font.TRUETYPE_FONT, 15));
+		remainingDividedByBufferSize.setForeground(new Color(115,115,115));
+		content.add(remainingDividedByBufferSize);
+		
+		JLabel remainingDividedByBufferSizeLabel = new JLabel("Remaining tasks/Buffer Size");
+		remainingDividedByBufferSizeLabel.setBounds(1030,155,200,100);
+		remainingDividedByBufferSizeLabel.setFont(new Font("SansSerif", Font.TRUETYPE_FONT, 10));
+		remainingDividedByBufferSizeLabel.setForeground(new Color(115,115,115));
+		content.add(remainingDividedByBufferSizeLabel);
+	}
+	
 	public void addCompletedOpsPanel() {
-		JLabel completed = new JLabel("Completed tasks");
-		completed.setBounds(900,175,200,100);
+		completed = new JLabel("Completed tasks");
+		completed.setBounds(800,175,200,100);
 		completed.setFont(new Font("SansSerif", Font.TRUETYPE_FONT, 15));
 		completed.setForeground(new Color(115,115,115));
 		content.add(completed);
@@ -173,13 +182,19 @@ public class MainPanel extends JFrame implements ActionListener, WindowListener{
 		modelCompletedTasks.addElement("Holi");
 		
 		completedOpsPanel = new JScrollPane(listCompletedOps);
-		completedOpsPanel.setBounds(800,240,300,180);
+		completedOpsPanel.setBounds(800,240,200,180);
 		content.add(completedOpsPanel);
+		
+		completedCounter = new JLabel("(" + "200" + ")");
+		completedCounter.setBounds(950,175,200,100);
+		completedCounter.setFont(new Font("SansSerif", Font.TRUETYPE_FONT, 15));
+		completedCounter.setForeground(new Color(115,115,115));
+		content.add(completedCounter);
 	}
 
 	public void addRemainingOpsPanel() {
-		JLabel remaining = new JLabel("Remaining tasks");
-		remaining.setBounds(900,-30,200,100);
+		remaining = new JLabel("Remaining tasks");
+		remaining.setBounds(800,-30,200,100);
 		remaining.setFont(new Font("SansSerif", Font.TRUETYPE_FONT, 15));
 		remaining.setForeground(new Color(115,115,115));
 		content.add(remaining);
@@ -187,9 +202,15 @@ public class MainPanel extends JFrame implements ActionListener, WindowListener{
 		
 		listRemainingOps = new JList<>(modelRemainingTasks); 
 		
-		JScrollPane remainingOpsPanel = new JScrollPane(listRemainingOps);
-		remainingOpsPanel.setBounds(800,30,300,180);
+		remainingOpsPanel = new JScrollPane(listRemainingOps);
+		remainingOpsPanel.setBounds(800,30,200,180);
 		content.add(remainingOpsPanel);
+		
+		remainingCounter = new JLabel("(" + "100" + ")");
+		remainingCounter.setBounds(950,-30,200,100);
+		remainingCounter.setFont(new Font("SansSerif", Font.TRUETYPE_FONT, 15));
+		remainingCounter.setForeground(new Color(115,115,115));
+		content.add(remainingCounter);
 	}
 
 	public void createBootstrapButtons() {
@@ -233,7 +254,11 @@ public class MainPanel extends JFrame implements ActionListener, WindowListener{
 	}
 	
 	public void addElementToRemainingList(String remainingElement) {
-		modelRemainingTasks.addElement(remainingElement);
+		try {
+			modelRemainingTasks.addElement(remainingElement);
+		} catch(Exception e) {
+			
+		}
 	}
 	
 	public void removeElementOfRemainingList() {
@@ -247,7 +272,6 @@ public class MainPanel extends JFrame implements ActionListener, WindowListener{
 		} catch(Exception e) {
 			
 		}
-		
 	}
 	
 	public void addElementToCompletedList(String completedTask) {
@@ -256,7 +280,6 @@ public class MainPanel extends JFrame implements ActionListener, WindowListener{
 		} catch(Exception e) {
 			
 		}
-		
 	}
 	
 	public void addButtonEvents() {
@@ -279,8 +302,13 @@ public class MainPanel extends JFrame implements ActionListener, WindowListener{
 						int n = Integer.parseInt(valuesN.getText());
 						int m = Integer.parseInt(valuesM.getText());
 						
-						createProducer(producersQuantity, waitTimeProducers, n, m);
-						createConsumer(consumersQuantity, waitTimeConsumers);
+						new Thread(() -> {
+							createProducer(producersQuantity, waitTimeProducers, n, m);
+						}).start();
+							
+						new Thread(() -> {
+							createConsumer(consumersQuantity, waitTimeConsumers);
+						}).start();
 						
 					} catch(Exception except) {
 						JOptionPane.showMessageDialog(null, "Type only Integer positive digits");
