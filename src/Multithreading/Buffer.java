@@ -5,6 +5,8 @@ import java.util.Queue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import Screen.MainPanel;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -16,13 +18,18 @@ import java.util.logging.Logger;
     private Queue<String> bufferStorage;
     private int bufferLength;
     private int sleepConsumer, sleepProductor;
+    private int consumerOperations, producerOperations;
+    private MainPanel mainPanel;
     
-    public Buffer(int length, int sleepConsumer, int sleepProductor) {
+    public Buffer(int length, int sleepConsumer, int sleepProductor, MainPanel mainPanel) {
        // this.bufferStorage = new LinkedList<>(Arrays.asList(new String[length]));
         this.bufferStorage = new LinkedList<String>();
         this.bufferLength = length;
         this.sleepConsumer = sleepConsumer;
         this.sleepProductor = sleepProductor;
+        this.consumerOperations = 0;
+        this.producerOperations = 0;
+        this.mainPanel = mainPanel;
     }
     
     synchronized String consume() {
@@ -35,6 +42,11 @@ import java.util.logging.Logger;
             }
         }
         String product = this.bufferStorage.poll();
+        consumerOperations++;
+        producerOperations--;
+        mainPanel.addRemainingCounter(producerOperations);
+        mainPanel.addCompletedCounter(consumerOperations);
+        
         notifyAll();
         
         return product;
@@ -51,6 +63,10 @@ import java.util.logging.Logger;
         }
         
         this.bufferStorage.add(product);
+        producerOperations++;
+        mainPanel.addRemainingCounter(producerOperations);
+        mainPanel.addRemainingDividedByBufferSize(producerOperations, bufferLength);
+        
         
         notifyAll();
     }

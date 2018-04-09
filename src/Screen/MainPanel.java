@@ -70,6 +70,10 @@ public class MainPanel extends JFrame implements ActionListener, WindowListener{
 	private JLabel completedCounter;
 	private JScrollPane remainingOpsPanel;
 	private JLabel remainingCounter;
+
+	private JLabel remainingDividedByBufferSizeLabel;
+
+	private JLabel remainingDividedByBufferSize;
 	
 	public MainPanel(){
 		super("Programming Languages Project");
@@ -157,13 +161,13 @@ public class MainPanel extends JFrame implements ActionListener, WindowListener{
 	}
 	
 	public void remainingDividedByBuffer() {
-		JLabel remainingDividedByBufferSize = new JLabel("2"+"/"+"10");
+		remainingDividedByBufferSize = new JLabel();
 		remainingDividedByBufferSize.setBounds(1090,175,200,100);
 		remainingDividedByBufferSize.setFont(new Font("SansSerif", Font.TRUETYPE_FONT, 15));
 		remainingDividedByBufferSize.setForeground(new Color(115,115,115));
 		content.add(remainingDividedByBufferSize);
 		
-		JLabel remainingDividedByBufferSizeLabel = new JLabel("Remaining tasks/Buffer Size");
+		remainingDividedByBufferSizeLabel = new JLabel("Remaining tasks/Buffer Size");
 		remainingDividedByBufferSizeLabel.setBounds(1030,155,200,100);
 		remainingDividedByBufferSizeLabel.setFont(new Font("SansSerif", Font.TRUETYPE_FONT, 10));
 		remainingDividedByBufferSizeLabel.setForeground(new Color(115,115,115));
@@ -178,14 +182,13 @@ public class MainPanel extends JFrame implements ActionListener, WindowListener{
 		content.add(completed);
 		
 		modelCompletedTasks = new DefaultListModel<>();
-		listCompletedOps = new JList<>(modelCompletedTasks); 
-		modelCompletedTasks.addElement("Holi");
+		listCompletedOps = new JList<>(modelCompletedTasks);
 		
 		completedOpsPanel = new JScrollPane(listCompletedOps);
 		completedOpsPanel.setBounds(800,240,200,180);
 		content.add(completedOpsPanel);
 		
-		completedCounter = new JLabel("(" + "200" + ")");
+		completedCounter = new JLabel();
 		completedCounter.setBounds(950,175,200,100);
 		completedCounter.setFont(new Font("SansSerif", Font.TRUETYPE_FONT, 15));
 		completedCounter.setForeground(new Color(115,115,115));
@@ -206,7 +209,7 @@ public class MainPanel extends JFrame implements ActionListener, WindowListener{
 		remainingOpsPanel.setBounds(800,30,200,180);
 		content.add(remainingOpsPanel);
 		
-		remainingCounter = new JLabel("(" + "100" + ")");
+		remainingCounter = new JLabel();
 		remainingCounter.setBounds(950,-30,200,100);
 		remainingCounter.setFont(new Font("SansSerif", Font.TRUETYPE_FONT, 15));
 		remainingCounter.setForeground(new Color(115,115,115));
@@ -297,19 +300,24 @@ public class MainPanel extends JFrame implements ActionListener, WindowListener{
 						
 						int bufferLength = Integer.parseInt(bufferSize.getText());
 						
-						buffer = new Buffer(bufferLength, waitTimeConsumers, waitTimeProducers);
+						buffer = new Buffer(bufferLength, waitTimeConsumers, waitTimeProducers, MainPanel.this);
 						
 						int n = Integer.parseInt(valuesN.getText());
 						int m = Integer.parseInt(valuesM.getText());
 						
-						new Thread(() -> {
-							createProducer(producersQuantity, waitTimeProducers, n, m);
-						}).start();
+						if(producersQuantity <= 0 || consumersQuantity <= 0 || waitTimeProducers <= 0 || 
+								waitTimeConsumers <= 0 || bufferLength <= 0 || n <= 0 || m<= 0 ) {
+							JOptionPane.showMessageDialog(null, "Type only Integer positive digits");
 							
-						new Thread(() -> {
-							createConsumer(consumersQuantity, waitTimeConsumers);
-						}).start();
-						
+						}else{
+							new Thread(() -> {
+								createProducer(producersQuantity, waitTimeProducers, n, m);
+							}).start();
+								
+							new Thread(() -> {
+								createConsumer(consumersQuantity, waitTimeConsumers);
+							}).start();
+						}
 					} catch(Exception except) {
 						JOptionPane.showMessageDialog(null, "Type only Integer positive digits");
 					}
@@ -379,6 +387,18 @@ public class MainPanel extends JFrame implements ActionListener, WindowListener{
 		}
 	}
 
+	public void  addCompletedCounter(int completedOps) {
+		completedCounter.setText("("+completedOps+")");
+	}
+	
+	public void addRemainingCounter(int remainingOps) {
+		remainingCounter.setText("("+remainingOps+")");
+	}
+	public void addRemainingDividedByBufferSize(int remainingOps, int bufferLength) {
+		remainingDividedByBufferSize.setText(remainingOps+"/"+bufferLength);
+	}
+	
+	
 	@Override
 	public void windowActivated(WindowEvent arg0) {}
 
