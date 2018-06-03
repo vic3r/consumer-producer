@@ -7,7 +7,7 @@ Consumer/Producer Project executes a simultaniously number of Lisp operations wh
   - Install JDK 8
   - Run by compiling the `Main` file (Javac `Main` nameOfCompiledCode)
   - Execute the compiled code (Java nameOfCompiledCode)
-  - Can either executed it via an IDE (NetBeans, Eclipse, etc).
+  - Can either be executed it via an IDE (NetBeans, Eclipse, etc).
   
 ## Authors
 
